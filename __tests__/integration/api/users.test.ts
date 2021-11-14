@@ -1,43 +1,13 @@
 import { connection, server } from '../../../@jest/setup';
 import { User } from '../../../src/entities/user';
 
-describe('GET /users', () => {
-  test('returns one user 2', async () => {
-    const uuid = 'aa3b13a7-ecd9-440b-abf3-ceca80b66684';
-    await connection
-      .createQueryBuilder()
-      .insert()
-      .into(User)
-      .values([
-        {
-          id: uuid,
-          firstName: 'Antho',
-          lastName: 'Godin'
-        }
-      ])
-      .execute();
+const PATH = '/api/users'
 
-    const res = await server.inject({
-      method: 'GET',
-      url: '/users'
-    });
-
-    expect(res.statusCode).toBe(200);
-    expect(JSON.parse(res.payload)).toEqual({
-      users: [
-        {
-          id: uuid,
-          firstName: 'Antho',
-          lastName: 'Godin'
-        }
-      ]
-    });
-  });
-
+describe(`GET ${PATH}`, () => {
   test('returns empty array', async () => {
     const res = await server.inject({
       method: 'GET',
-      url: '/users'
+      url: PATH
     });
 
     expect(res.statusCode).toBe(200);
@@ -61,7 +31,7 @@ describe('GET /users', () => {
 
     const res = await server.inject({
       method: 'GET',
-      url: '/users'
+      url: PATH
     });
 
     expect(res.statusCode).toBe(200);

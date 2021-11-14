@@ -5,7 +5,7 @@ const pingController = (
     options: FastifyServerOptions,
     next: () => void
 ) => {
-    server.get('/ping', {}, async (req, res) => {
+    server.get('/api/ping', {}, async (req, res) => {
         res.send({ status: 'ok' })
     });
 

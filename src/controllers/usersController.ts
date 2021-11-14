@@ -5,7 +5,7 @@ const userController = (
   options: FastifyServerOptions,
   next: () => void
 ) => {
-  server.get('/users', {}, async (req, res) => {
+  server.get('/api/users', {}, async (req, res) => {
     req.log.info(`list inventory from db`);
     const users = await server.db.users.find();
 
