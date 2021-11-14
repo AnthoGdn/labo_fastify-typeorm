@@ -6,10 +6,14 @@ const TeamsController = (
     next: () => void
 ) => {
     server.get('/api/team/:year', {}, async (req, res) => {
-        res.send({ team: {
-            // @ts-ignore
-            year: req.params.year
-        }});
+        // @ts-ignore
+        const year = req.params.year
+        const team = await server.db.teams.findOne({ where: { year }, relations: ['players'] });
+        if (team) {
+            res.send({ team });
+        } else {
+            res.code(404).send()
+        }
     });
     next();
 };

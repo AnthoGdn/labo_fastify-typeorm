@@ -12,7 +12,7 @@ export const clearDb = async (connection: Connection) => {
 
     for (const entity of entities) {
         const repository = connection.getRepository(entity.name);
-        await repository.clear();
+        await repository.delete({});
     }
 }
 
