@@ -1,0 +1,10 @@
+### macOS
+.DS_Store
+
+### Nodejs
+node_modules
+build
+yarn-error.log
+
+### Jetbrain
+.idea
