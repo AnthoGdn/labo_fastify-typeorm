@@ -21,6 +21,31 @@ const TeamsController = (
       }
     }
   );
+
+  server.post<{ Params: { year: string } }>(
+    '/api/team/:year',
+    {},
+    async (req, res) => {
+      const year = req.params.year;
+      const team = await server.db.teams.findOne({
+        where: { year },
+        relations: ['players']
+      });
+
+      if (team) {
+        const playerToAdd = req.body;
+        const savedPlayer = await server.db.players.save(playerToAdd);
+        await server.db.teams.save({
+          ...team,
+          players: [...team.players, savedPlayer]
+        });
+
+        res.send(savedPlayer);
+      } else {
+        res.code(404).send();
+      }
+    }
+  );
   next();
 };
 
