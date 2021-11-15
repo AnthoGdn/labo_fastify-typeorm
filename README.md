@@ -57,7 +57,7 @@ yarn lint
 ### Tests
 You can find some integration/e2e tests on [`__tests__integration/api`](https://github.com/AnthoGdn/labo_fastify-typeorm/tree/master/__tests__/integration/api).
 To execute them, it's required to start a postgres database server. It's possible to start it with `docker-compose up -d`.
-I like this kind of test because I can easly change my code architecture without changing my tests. They are integration tests and fonctionnal tests too.
+I like this kind of test because I can easly change my code architecture without changing my tests. They are integration tests and functionnal tests too.
 Now my code base is established, I can easly play with the code architecture and change it with security of my functionnal tests... 
 
 ### Code architecture
