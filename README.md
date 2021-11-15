@@ -4,6 +4,8 @@ Hi! Welcome to my labo.
 In this project, I try Fastify.
 It's a nodejs api programed with Typescript, Fastify and TypeORM.
 
+Note: I inspired by a test created by Maplr: https://github.com/Maplr-Community/nodejs-test-hockey-game
+
 ## Technologies
 * Nodejs
 * Typescript
@@ -50,10 +52,11 @@ yarn test
 yarn lint
 ```
 
-## Todo
-* Implement some features
+## Some ideas
+* Create more DTO and mappers to map DTO to entities
+* Move business code into service layer. No in controllers
 * Add a fastify plugin to automatically import plugins and controllers
-* Add a fastify plugin to add Swagger documentation 
+* Add a fastify plugin to add Swagger documentation
 
 ## Author
 Anthony Godin
