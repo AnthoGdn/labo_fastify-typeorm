@@ -1,6 +1,6 @@
-import { Team } from '../../../../src/entities/team';
-import { Player } from '../../../../src/entities/player';
-import { connection } from '../../../../@jest/setup';
+import { Team } from '../../../src/entities/team';
+import { Player } from '../../../src/entities/player';
+import { connection } from '../../../@jest/setup';
 import { Connection } from 'typeorm';
 
 type CreateTeam = (_: {
