@@ -32,3 +32,10 @@ export const createTeam: CreateTeam = async ({ connection, team, players }) => {
       .add(players);
   }
 };
+type GetTeam = (_: { year: number }) => Promise<Team | undefined>;
+export const getTeam: GetTeam = async ({ year }) =>
+  connection
+    .getRepository(Team)
+    .createQueryBuilder('team')
+    .where('team.year = :year', { year })
+    .getOne();
