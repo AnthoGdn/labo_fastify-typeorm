@@ -1,6 +1,6 @@
 import { connection, server } from '../../../../@jest/setup';
 import { Player } from '../../../../src/entities/player';
-import { createTeam } from '../../../helpers/database/team';
+import { createTeam } from '../../../helpers/database/teams';
 
 const PATH = '/api/team';
 

@@ -1,5 +1,5 @@
 import { connection, server } from '../../../../@jest/setup';
-import { createTeam, getTeam } from '../../../helpers/database/team';
+import { createTeam, getTeam } from '../../../helpers/database/teams';
 import { PlayerToSaveDTO } from '../../../../src/dto/player';
 
 const PATH = '/api/team';
