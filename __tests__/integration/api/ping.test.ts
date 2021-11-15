@@ -1,10 +1,12 @@
 import { server } from '../../../@jest/setup';
 
-describe('GET /ping', () => {
+const PATH = '/api/ping';
+
+describe(`GET ${PATH}`, () => {
   test('returns ok', async () => {
     const res = await server.inject({
       method: 'GET',
-      url: '/ping'
+      url: PATH
     });
 
     expect(res.statusCode).toBe(200);

@@ -4,12 +4,14 @@ import fp from 'fastify-plugin';
 import { createConnection, getConnectionOptions, Connection } from 'typeorm';
 import { User } from '../entities/user';
 import { ServerDb } from '../@types/fastify';
+import { Team } from '../entities/team';
+import { Player } from '../entities/player';
 
 export const getConnection = async () => {
   const connectionOptions = await getConnectionOptions();
   Object.assign(connectionOptions, {
     options: { encrypt: true },
-    entities: [User]
+    entities: [User, Team, Player]
   });
 
   const connection = await createConnection(connectionOptions);
@@ -27,7 +29,9 @@ export default fp(
   ) => {
     try {
       const db: ServerDb = {
-        users: connection.getRepository(User)
+        users: connection.getRepository(User),
+        teams: connection.getRepository(Team),
+        players: connection.getRepository(Player)
       };
 
       server.decorate('db', db);
