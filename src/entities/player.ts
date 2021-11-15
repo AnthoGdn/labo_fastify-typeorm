@@ -32,18 +32,30 @@ export class Player {
   @JoinColumn()
   team: Team;
 
-  @Column()
+  @Column({
+    type: 'int',
+    unique: true
+  })
   number: number;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 100
+  })
   name: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 100
+  })
   lastName: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 50
+  })
   position: string;
 
-  @Column()
+  @Column('boolean')
   isCaptain: boolean;
 }

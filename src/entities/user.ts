@@ -5,9 +5,15 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 150
+  })
   firstName: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 150
+  })
   lastName: string;
 }

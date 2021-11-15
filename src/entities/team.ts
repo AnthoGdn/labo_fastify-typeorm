@@ -12,10 +12,15 @@ export class Team {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 150
+  })
   coach: string;
 
-  @Column()
+  @Column({
+    type: 'int'
+  })
   year: number;
 
   @OneToMany(() => Player, (player) => player.team)
