@@ -4,8 +4,8 @@ import fp from 'fastify-plugin';
 import { createConnection, getConnectionOptions, Connection } from 'typeorm';
 import { User } from '../entities/user';
 import { ServerDb } from '../@types/fastify';
-import { Team } from "../entities/team";
-import {Player} from "../entities/player";
+import { Team } from '../entities/team';
+import { Player } from '../entities/player';
 
 export const getConnection = async () => {
   const connectionOptions = await getConnectionOptions();

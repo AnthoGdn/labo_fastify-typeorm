@@ -1,12 +1,11 @@
 import { connection, server } from '../../../@jest/setup';
-import { User } from '../../../src/entities/user';
-import { Team } from '../../../src/entities/team';
 import { Player } from '../../../src/entities/player';
+import { createTeam } from '../helpers/database/team';
 
 const PATH = '/api/team';
 
 describe(`GET ${PATH}/:year`, () => {
-  test('returns unknown team', async () => {
+  test('returns 404 because there is not team in database for the year', async () => {
     const res = await server.inject({
       method: 'GET',
       url: `${PATH}/1`
@@ -16,20 +15,13 @@ describe(`GET ${PATH}/:year`, () => {
   });
 
   test('returns a team without player', async () => {
-    const uuid = 'aa3b13a7-ecd9-440b-abf3-ceca80b66683';
-    await connection
-      .createQueryBuilder()
-      .insert()
-      .into(Team)
-      .values([
-        {
-          id: uuid,
-          coach: 'Marion Felix',
-          year: 2021,
-          players: []
-        }
-      ])
-      .execute();
+    const team = {
+      id: 'aa3b13a7-ecd9-440b-abf3-ceca80b66683',
+      coach: 'Marion Felix',
+      year: 2021,
+      players: []
+    };
+    await createTeam({ connection, team });
 
     const res = await server.inject({
       method: 'GET',
@@ -38,54 +30,28 @@ describe(`GET ${PATH}/:year`, () => {
 
     expect(res.statusCode).toBe(200);
     expect(JSON.parse(res.payload)).toStrictEqual({
-      team: {
-        id: uuid,
-        coach: 'Marion Felix',
-        year: 2021,
-        players: []
-      }
+      team: team
     });
   });
 
   test('returns a team with one player', async () => {
-    const playerUuid = 'aa3b13a7-ecd9-440b-abf3-ceca80b66683';
-    const teamUuid = 'aa3b13a7-ecd9-440b-abf3-ceca80b66684';
-
-    const player = {
-      id: playerUuid,
-      name: 'Anthony Godin',
-      lastName: 'Godin',
-      number: 1,
-      position: 'defenseman',
-      isCaptain: false
-    };
+    const player: Player = new Player(
+      'aa3b13a7-ecd9-440b-abf3-ceca80b66683',
+      1,
+      'Anthony',
+      'Godin',
+      'defenseman',
+      false
+    );
 
     const team = {
-      id: teamUuid,
+      id: 'aa3b13a7-ecd9-440b-abf3-ceca80b66684',
       coach: 'Marion Felix',
       year: 2021,
       players: []
     };
 
-    await connection
-      .createQueryBuilder()
-      .insert()
-      .into(Team)
-      .values([team])
-      .execute();
-
-    await connection
-      .createQueryBuilder()
-      .insert()
-      .into(Player)
-      .values([player])
-      .execute();
-
-    await connection
-      .createQueryBuilder()
-      .relation(Team, 'players')
-      .of(teamUuid)
-      .add(player);
+    await createTeam({ connection, team, players: [player] });
 
     const res = await server.inject({
       method: 'GET',
@@ -95,10 +61,8 @@ describe(`GET ${PATH}/:year`, () => {
     expect(res.statusCode).toBe(200);
     expect(JSON.parse(res.payload)).toStrictEqual({
       team: {
-        id: teamUuid,
-        coach: 'Marion Felix',
-        year: 2021,
-        players: [player]
+        ...team,
+        players: [{ ...player }]
       }
     });
   });

@@ -1,6 +1,6 @@
 import { server } from '../../../@jest/setup';
 
-const PATH = '/api/ping'
+const PATH = '/api/ping';
 
 describe(`GET ${PATH}`, () => {
   test('returns ok', async () => {

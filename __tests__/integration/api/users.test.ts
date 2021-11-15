@@ -1,7 +1,7 @@
 import { connection, server } from '../../../@jest/setup';
 import { User } from '../../../src/entities/user';
 
-const PATH = '/api/users'
+const PATH = '/api/users';
 
 describe(`GET ${PATH}`, () => {
   test('returns empty array', async () => {

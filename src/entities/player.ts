@@ -1,27 +1,49 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import {Team} from "./team";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn
+} from 'typeorm';
+import { Team } from './team';
 
 @Entity()
 export class Player {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  constructor(
+    id: string,
+    number: number,
+    name: string,
+    lastName: string,
+    position: string,
+    isCaptain: boolean
+  ) {
+    this.id = id;
+    this.number = number;
+    this.name = name;
+    this.lastName = lastName;
+    this.position = position;
+    this.isCaptain = isCaptain;
+  }
 
-    @ManyToOne(() => Team, team => team.players)
-    @JoinColumn()
-    team: Team;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    number: number;
+  @ManyToOne(() => Team, (team) => team.players)
+  @JoinColumn()
+  team: Team;
 
-    @Column()
-    name: string;
+  @Column()
+  number: number;
 
-    @Column()
-    lastName: string;
+  @Column()
+  name: string;
 
-    @Column()
-    position: string;
+  @Column()
+  lastName: string;
 
-    @Column()
-    isCaptain: boolean;
+  @Column()
+  position: string;
+
+  @Column()
+  isCaptain: boolean;
 }

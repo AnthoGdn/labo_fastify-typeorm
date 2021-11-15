@@ -1,15 +1,15 @@
 import { FastifyServerOptions, FastifyInstance } from 'fastify';
 
 const pingController = (
-    server: FastifyInstance,
-    options: FastifyServerOptions,
-    next: () => void
+  server: FastifyInstance,
+  options: FastifyServerOptions,
+  next: () => void
 ) => {
-    server.get('/api/ping', {}, async (req, res) => {
-        res.send({ status: 'ok' })
-    });
+  server.get('/api/ping', {}, async (req, res) => {
+    res.send({ status: 'ok' });
+  });
 
-    next();
+  next();
 };
 
 export default pingController;

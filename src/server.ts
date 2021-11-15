@@ -1,8 +1,8 @@
 import fastify from 'fastify';
 
-import pingController from "./controllers/pingController";
+import pingController from './controllers/pingController';
 import userController from './controllers/usersController';
-import teamsController from "./controllers/teamsController";
+import teamsController from './controllers/teamsController';
 import { Connection } from 'typeorm';
 import db from './plugins/db';
 
