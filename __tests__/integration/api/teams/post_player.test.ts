@@ -35,19 +35,146 @@ const isPlayerSavedInTeamRepository: IsPlayerSavedInTeamRepository = async ({
 
 describe(`POST a player on ${PATH}/:year`, () => {
   test('returns 404 because there is not team in database for the year', async () => {
+    const player: PlayerToSaveDTO = {
+      number: 99,
+      name: 'Antonin',
+      lastName: 'Bouscarel',
+      position: 'forward',
+      isCaptain: false
+    };
+
     const res = await server.inject({
       method: 'POST',
       url: `${PATH}/1`,
-      payload: {
-        number: 99,
-        name: 'Antonin',
-        lastname: 'Bouscarel',
-        position: 'forward',
-        isCaptain: false
-      }
+      payload: player
     });
 
     expect(res.statusCode).toBe(404);
+  });
+
+  test('returns 400 because it misses number in the player dto', async () => {
+    const team = {
+      id: 'aa3b13a7-ecd9-440b-abf3-ceca80b66683',
+      coach: 'Marion Felix',
+      year: 2021,
+      players: []
+    };
+    await createTeam({ connection, team });
+
+    const player = {
+      name: 'Antonin',
+      lastName: 'Bouscarel',
+      position: 'forward',
+      isCaptain: false
+    };
+
+    const res = await server.inject({
+      method: 'POST',
+      url: `${PATH}/2021`,
+      payload: player
+    });
+
+    expect(res.statusCode).toBe(400);
+  });
+
+  test('returns 400 because it misses name in the player dto', async () => {
+    const team = {
+      id: 'aa3b13a7-ecd9-440b-abf3-ceca80b66683',
+      coach: 'Marion Felix',
+      year: 2021,
+      players: []
+    };
+    await createTeam({ connection, team });
+
+    const player = {
+      number: 99,
+      lastName: 'Bouscarel',
+      position: 'forward',
+      isCaptain: false
+    };
+
+    const res = await server.inject({
+      method: 'POST',
+      url: `${PATH}/2021`,
+      payload: player
+    });
+
+    expect(res.statusCode).toBe(400);
+  });
+
+  test('returns 400 because it misses lastName in the player dto', async () => {
+    const team = {
+      id: 'aa3b13a7-ecd9-440b-abf3-ceca80b66683',
+      coach: 'Marion Felix',
+      year: 2021,
+      players: []
+    };
+    await createTeam({ connection, team });
+
+    const player = {
+      number: 99,
+      name: 'Antonin',
+      position: 'forward',
+      isCaptain: false
+    };
+
+    const res = await server.inject({
+      method: 'POST',
+      url: `${PATH}/2021`,
+      payload: player
+    });
+
+    expect(res.statusCode).toBe(400);
+  });
+
+  test('returns 400 because it misses position in the player dto', async () => {
+    const team = {
+      id: 'aa3b13a7-ecd9-440b-abf3-ceca80b66683',
+      coach: 'Marion Felix',
+      year: 2021,
+      players: []
+    };
+    await createTeam({ connection, team });
+
+    const player = {
+      number: 99,
+      name: 'Antonin',
+      lastName: 'Bouscarel',
+      isCaptain: false
+    };
+
+    const res = await server.inject({
+      method: 'POST',
+      url: `${PATH}/2021`,
+      payload: player
+    });
+
+    expect(res.statusCode).toBe(400);
+  });
+
+  test('returns 400 because it misses isCaptain in the player dto', async () => {
+    const team = {
+      id: 'aa3b13a7-ecd9-440b-abf3-ceca80b66683',
+      coach: 'Marion Felix',
+      year: 2021,
+      players: []
+    };
+    await createTeam({ connection, team });
+
+    const player = {
+      number: 99,
+      name: 'Antonin',
+      lastName: 'Bouscarel',
+      position: 'forward'
+    };
+
+    const res = await server.inject({
+      method: 'POST',
+      url: `${PATH}/2021`,
+      payload: player
+    });
+
+    expect(res.statusCode).toBe(400);
   });
 
   test('add a player in existing team and returns the player', async () => {
@@ -59,7 +186,7 @@ describe(`POST a player on ${PATH}/:year`, () => {
     };
     await createTeam({ connection, team });
 
-    const player = {
+    const player: PlayerToSaveDTO = {
       number: 99,
       name: 'Antonin',
       lastName: 'Bouscarel',

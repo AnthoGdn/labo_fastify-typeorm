@@ -1,5 +1,23 @@
 import { FastifyServerOptions, FastifyInstance } from 'fastify';
 
+const bodyJsonSchema = {
+  type: 'object',
+  required: ['number', 'name', 'lastName', 'position', 'isCaptain'],
+  properties: {
+    number: { type: 'number' },
+    name: { type: 'string' },
+    lastName: { type: 'string' },
+    position: { type: 'string' },
+    isCaptain: { type: 'boolean' }
+  }
+};
+
+const opts = {
+  schema: {
+    body: bodyJsonSchema
+  }
+};
+
 const TeamsController = (
   server: FastifyInstance,
   options: FastifyServerOptions,
@@ -24,7 +42,7 @@ const TeamsController = (
 
   server.post<{ Params: { year: string } }>(
     '/api/team/:year',
-    {},
+    opts,
     async (req, res) => {
       const year = req.params.year;
       const team = await server.db.teams.findOne({
