@@ -4,7 +4,7 @@ Hi! Welcome to my labo.
 In this project, I try Fastify.
 It's a nodejs api programed with Typescript, Fastify and TypeORM.
 
-Note: I inspired by a test created by Maplr: https://github.com/Maplr-Community/nodejs-test-hockey-game
+Note: I took my inspiration by a test created by Maplr: https://github.com/Maplr-Community/nodejs-test-hockey-game
 
 ## Technologies
 * Nodejs
